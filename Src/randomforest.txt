@@ -1,0 +1,71 @@
+from sklearn.feature_extraction.text import TfidfVectorizer
+from sklearn.metrics.pairwise import cosine_similarity
+import numpy as np
+from sklearn.ensemble import RandomForestClassifier
+
+list1 = []
+
+f10 = open("binary.txt", "w")
+
+f = open("train_drugs.data", "r")
+binary_list=[]
+
+
+f1 = f.readlines()
+
+for x in f1:
+    list1.append(x)
+
+##print(list)
+
+f.close()
+
+i = 0
+
+for data in list1:
+    data = list1[i]
+    binary_list.append(data[0])
+    i = i+1
+
+print(binary_list)
+
+
+list2=[]
+f2 = open("test_drugs.data")
+
+f3 = f2.readlines()
+
+for x in f3:
+    list2.append(x)
+
+unique_numbers = set()
+
+for molecules in list1:
+    for numbers in molecules.split():
+        unique_numbers.add(numbers)
+
+for molecules in list2:
+    for numbers in molecules.split():
+        unique_numbers.add(numbers)
+
+
+vectorizer = TfidfVectorizer(vocabulary= list(unique_numbers))
+
+training_matrix = vectorizer.fit_transform(list1)
+training_feature_names = vectorizer.get_feature_names()
+
+testing_matrix = vectorizer.fit_transform(list2)
+testing_feature_names = vectorizer.get_feature_names()
+
+
+
+classifier = RandomForestClassifier(n_estimators=10000)
+
+
+
+X, y = training_matrix, binary_list
+classifier = classifier.fit(X,y)
+
+results = []
+
+results = classifier.predict(testing_matrix)

@@ -1,0 +1,26 @@
+
+Foo:
+addi $sp, $sp, -20 #Creating a space in a stack
+sw $rA, 16(sp) #Creating a pointer for return address for the stack
+sw $a0, 12(sp) #Creating a pointer for value of a in the stack
+sw $a1, 8(sp) #Creating a pointer for value of b in the stack
+sw $a2, 4(sp) #Creating a pointer for value of c in the stack
+sw $a3, 0(sp) #Creating a pointer for value of d in the stack
+lw $s1, 12(sp) #Loading a value of a from stack to the register
+lw $s2, 8(sp) #Loading a value of b from stack to the register
+lw $s3, 4(sp) #Loading a value of c from stack to the register
+lw $s4, 0(sp) #Loading a value of d from stack to the register
+lw $s5, 16(sp) #Loading a value of return Address from stack to the register
+add $a0, $zero, $s1 #Since only a0 and a1 can passed as arguments, therefore, moving a to
+$a0
+add $a1, $zero, $s3 #Since only a0 and a1 can passed as arguments, therefore, moving c to
+$a1
+jal bar #Call bar function that takes two parameters, $s1, $s2 bar(a,c)
+move $s6, $v0 #moving the return value from the bar function to the register $s6
+add $a0, $zero, $s1 #now moving b to the register $a0
+add $a1, $zero, $s3 #moving d to the register $a1
+jal bar #send the values of b and d to the bar function bar(b,d)
+move $s7, $v0 #saving the returned value of second bar function to the register $s7
+sub $s5, $s6, $s7 #now subtracting $s6 to $s7
+jr $s5 #returning rA, which was earlier moved in register $s5.
+
