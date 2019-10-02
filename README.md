@@ -6,7 +6,7 @@ A model which classifies 18,000 reviews into positive or negative.
 * NLTK
 *TFIDF
 
-##Sample Code snippet of the customized KNN algorithm
+## Sample Code snippet of the customized KNN algorithm
 
 ````
 index = 0
