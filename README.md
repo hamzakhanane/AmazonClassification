@@ -4,7 +4,7 @@ A model which classifies 18,000 reviews into positive or negative.
 ## Technologies used
 * K Nearest Neighbor Algorithm
 * NLTK
-*TFIDF
+* TFIDF
 
 ## Sample Code snippet of the customized KNN algorithm
 
